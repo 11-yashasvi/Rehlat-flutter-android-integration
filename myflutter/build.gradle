@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 33
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        // For Option A - Depend on the Android Archive (AAR)
+        profile {
+            initWith debug
+        }
+    }
+
+}
+
+// For Option A - Depend on the Android Archive (AAR)
+//repositories {
+//    maven {
+//        url '../../duy_flutter_module/build/host/outputs/repo'
+//    }
+//    maven {
+//        url 'http://download.flutter.io'
+//    }
+//}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // For Option A - Depend on the Android Archive (AAR)
+    debugImplementation 'com.example.duyfluttermodule:flutter_debug:1.0'
+    profileImplementation 'com.example.duyfluttermodule:flutter_profile:1.0'
+    releaseImplementation 'com.example.duyfluttermodule:flutter_release:1.0'
+}
